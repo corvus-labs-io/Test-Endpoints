@@ -171,6 +171,3 @@ The script performs the following checks for each selected region:
 *   **`jq` Errors:** If you see `jq: error:` messages, there might be an issue with how JSON is being piped or the response isn't valid JSON.
 *   **Permission Denied:** Ensure the script has execute permissions (`chmod +x test_endpoints.sh`). If creating temporary files fails, check write permissions in the script's directory.
 
-## License
-
-*(Optional: Specify your license here, e.g., MIT License, or refer to a LICENSE file)*
