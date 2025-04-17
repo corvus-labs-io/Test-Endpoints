@@ -59,8 +59,8 @@ The script performs the following checks for each selected region:
 
 1.  **Clone the Repository:**
     ```bash
-    git clone <your-repo-url>
-    cd <your-repo-directory>
+    git clone https://github.com/corvus-labs-io/Test-Endpoints.git
+    cd Test-Endpoints
     ```
 
 2.  **Ensure File Structure:** Verify that `geyser.proto` is inside the `proto/` subdirectory.
