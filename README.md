@@ -68,15 +68,39 @@ The script performs the following checks for each selected region:
 3.  **Install Dependencies:**
     *   **Debian/Ubuntu:**
         ```bash
-        sudo apt update && sudo apt install -y curl grpcurl jq nodejs npm coreutils grep coreutils xargs
+        # Update package lists
+        sudo apt update
+
+        # Install core tools + findutils (provides xargs)
+        sudo apt install -y \
+          curl \                          # HTTP RPC calls
+          jq \                            # JSON parsing
+          nodejs npm \                    # WebSocket fallback (ws package)
+          coreutils \                     # timeout, head, grep, etc.
+          grep \                          # text searching
+          findutils                       # includes xargs :contentReference[oaicite:2]{index=2}
+
+        # Install grpcurl (if not already installed)
+        GRPCURL_VER="1.8.7"
+        curl -sSL "https://github.com/fullstorydev/grpcurl/releases/download/v${GRPCURL_VER}/grpcurl_${GRPCURL_VER}_linux_x86_64.tar.gz" \
+          | sudo tar -xz -C /usr/local/bin
+        sudo chmod +x /usr/local/bin/grpcurl
         ```
-        *(Note: `timeout` is part of `coreutils`. Check your `nodejs`/`npm` versions if needed.)*
     *   **macOS (using Homebrew):**
         ```bash
-        brew install curl grpcurl jq node grep coreutils findutils
+        brew install \
+          curl \         # HTTP RPC calls
+          jq \           # JSON parsing
+          node \         # WebSocket fallback
+          grep \         # text searching
+          coreutils \    # timeout (as gtimeout), head, etc.
+          findutils \    # provides GNU xargs (as gxargs) :contentReference[oaicite:3]{index=3}
+          grpcurl        # curl-like tool for gRPC servers :contentReference[oaicite:4]{index=4}
         ```
-        *(Note: `timeout` is `gtimeout` from `coreutils` on macOS, the script uses `timeout` so ensure `coreutils` binaries are in PATH or adjust script if needed)*
-    *   **Other Linux Distributions:** Use your distribution's package manager (e.g., `yum`, `dnf`, `pacman`) to install the equivalent packages.
+    *   **Other Linux Distributions:**  
+        Use your distro’s package manager (e.g., `yum`, `dnf`, `pacman`) to install `curl`, `jq`, `nodejs/npm`, `coreutils`, `grep`, and `findutils` (for `xargs`), then fetch the `grpcurl` binary as shown above.
+
+
 
 4.  **Install Node.js `ws` Package:** Navigate to the script's directory in your terminal and run:
     ```bash
